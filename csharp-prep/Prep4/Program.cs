@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 class Program
 {
@@ -14,7 +15,7 @@ class Program
         do
         {   Console.Write("Enter Number: ");
             enterList = int.Parse(Console.ReadLine());
-            if (enterList != 0);
+            if (enterList != 0)
             {
                 numbers.Add(enterList);
             }
