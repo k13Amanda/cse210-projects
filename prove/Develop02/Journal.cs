@@ -1,19 +1,27 @@
+
 using System;
 using System.Collections.Generic;
 using System.IO;
 
+// This class manages the collection of journal entries.
 public class Journal
 {
+    // List to store new entries.
     public List<Entry> Entries { get; private set; } = new List<Entry>();
+
+    // List to store loaded entries from a file.
     public List<Entry> LoadedEntries { get; private set; } = new List<Entry>();
+
+    // Variable to store the name of the user file.
     public string UserFile { get; private set; } = "";
 
+    // Method to add a new entry to the journal.
     public void AddEntry(string prompt, string content)
     {
         Entries.Add(new Entry(DateTime.Now.ToString("yyyy-MM-dd"), prompt, content));
-        DisplayEntries();
     }
 
+    // Method to load journal entries from a file.
     public void LoadFile(string filePath)
     {
         if (File.Exists(filePath))
@@ -21,6 +29,8 @@ public class Journal
             UserFile = filePath;
             Entries.Clear();
             LoadedEntries.Clear();
+
+            // Read all lines from the file and process them.
             var fileContents = File.ReadAllLines(filePath);
             for (int i = 0; i < fileContents.Length; i += 3)
             {
@@ -46,6 +56,7 @@ public class Journal
         }
     }
 
+    // Method to save new entries to the user file.
     public void SaveEntries()
     {
         if (string.IsNullOrEmpty(UserFile))
@@ -73,6 +84,7 @@ public class Journal
         }
     }
 
+    // Method to display both loaded and new entries.
     public void DisplayEntries()
     {
         if (LoadedEntries.Count > 0)
