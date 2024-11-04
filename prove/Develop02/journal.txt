@@ -1,14 +1,15 @@
+Date: 2024-11-04 - Prompt: Describe a moment today that made you laugh.
+Entry: test 1
+
+Date: 2024-11-04 - Prompt: Describe a moment today that made you laugh.
+Entry: test2
+
+Date: 2024-11-04 - Prompt: How did you show kindness to someone today?
+Entry: test3
+
+Date: 2024-11-04 - Prompt: What was the best part of my day?
+Entry: test4
+
 Date: 2024-11-04 - Prompt: What is a dream you have for the future?
-test anwser 3
-Date: 2024-11-04 - Prompt: Reflect on a time when you felt truly proud of yourself.
-test anwer 4
-Date: 2024-11-04 - Prompt: If you could give advice to your past self, what would it be?
-test anwesr5 this is going good
-Date: 2024-11-04 - Prompt: What is a dream you have for the future?
-test anwser 3
-Date: 2024-11-04 - Prompt: Reflect on a time when you felt truly proud of yourself.
-test anwer 4
-Date: 2024-11-04 - Prompt: If you could give advice to your past self, what would it be?
-test anwesr5 this is going good
-Date: 2024-11-04 - Prompt: What was the strongest emotion I felt today?
-Entry: this is another test 6
+Entry: test5
+
