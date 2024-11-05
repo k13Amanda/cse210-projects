@@ -1,8 +1,10 @@
-
+// I checked to make sure its a valid file and use if else statement to let the user know.
+// I added a message to track the daily streaks and display it afrer they save a new entry. 
+// this should give motovation to write everyday and show them progress. 
 
 using System;
-// using System.Runtime.CompilerServices;
-// using System.Xml.Linq;
+using System.Runtime.CompilerServices;
+using System.Xml.Linq;
 using System.Collections.Generic;
 using System.IO;
 

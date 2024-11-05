@@ -1,24 +1,31 @@
-
+ 
 using System;
 using System.Collections.Generic;
 using System.IO;
+
 
 // This class manages the collection of journal entries.
 public class Journal
 {
     // List to store new entries.
-    public List<Entry> Entries { get; private set; } = new List<Entry>();
+    private List<Entry> _entries = new List<Entry>();
 
     // List to store loaded entries from a file.
-    public List<Entry> LoadedEntries { get; private set; } = new List<Entry>();
+    private List<Entry> _loadedEntries = new List<Entry>();
 
     // Variable to store the name of the user file.
-    public string UserFile { get; private set; } = "";
+    private string _userFile = "";
+
+    // Variable to track the daily entry streak.
+    private int _entryStreak = 0;
+
+    // Variable to track the date of the last entry saved.
+    private DateTime _lastEntryDate;
 
     // Method to add a new entry to the journal.
     public void AddEntry(string prompt, string content)
     {
-        Entries.Add(new Entry(DateTime.Now.ToString("yyyy-MM-dd"), prompt, content));
+        _entries.Add(new Entry(DateTime.Now.ToString("yyyy-MM-dd"), prompt, content));
     }
 
     // Method to load journal entries from a file.
@@ -26,9 +33,9 @@ public class Journal
     {
         if (File.Exists(filePath))
         {
-            UserFile = filePath;
-            Entries.Clear();
-            LoadedEntries.Clear();
+            _userFile = filePath;
+            _entries.Clear();
+            _loadedEntries.Clear();
 
             // Read all lines from the file and process them.
             var fileContents = File.ReadAllLines(filePath);
@@ -44,11 +51,11 @@ public class Journal
                         string date = dateLine.Substring(6, 10);
                         string prompt = dateLine.Substring(20);
                         string content = contentLine.Substring(7);
-                        LoadedEntries.Add(new Entry(date, prompt, content));
+                        _loadedEntries.Add(new Entry(date, prompt, content));
                     }
                 }
             }
-            Console.WriteLine($"File {UserFile} loaded successfully.");
+            Console.WriteLine($"File {_userFile} loaded successfully.");
         }
         else
         {
@@ -56,27 +63,30 @@ public class Journal
         }
     }
 
-    // Method to save new entries to the user file.
+    // Method to save new entries to the user file and update the streak.
     public void SaveEntries()
     {
-        if (string.IsNullOrEmpty(UserFile))
+        if (string.IsNullOrEmpty(_userFile))
         {
             Console.Write("Enter the file name to save entries: ");
-            UserFile = Console.ReadLine();
+            _userFile = Console.ReadLine();
         }
 
-        if (!string.IsNullOrEmpty(UserFile))
+        if (!string.IsNullOrEmpty(_userFile))
         {
-            using (StreamWriter sw = new StreamWriter(UserFile, true))
+            using (StreamWriter sw = new StreamWriter(_userFile, true))
             {
-                foreach (var entry in Entries)
+                foreach (var entry in _entries)
                 {
                     sw.WriteLine(entry.ToString());
                     sw.WriteLine(); // Add a blank line between entries
                 }
             }
             Console.WriteLine("Entries saved successfully.");
-            Entries.Clear();
+            
+            UpdateStreak();
+            
+            _entries.Clear();
         }
         else
         {
@@ -84,23 +94,57 @@ public class Journal
         }
     }
 
+    // Method to update the entry streak.
+    private void UpdateStreak()
+    {
+        DateTime today = DateTime.Today;
+        
+        if (_lastEntryDate == default(DateTime))
+        {
+            // If no entries have been saved before, set the streak to 1.
+            _entryStreak = 1;
+        }
+        else
+        {
+            // Calculate the difference in days between the last entry date and today.
+            int difference = (today - _lastEntryDate).Days;
+
+            if (difference == 1)
+            {
+                // If the difference is exactly 1 day, increment the streak.
+                _entryStreak++;
+            }
+            else if (difference > 1)
+            {
+                // If the difference is greater than 1 day, reset the streak.
+                _entryStreak = 1;
+            }
+        }
+
+        // Update the last entry date to today.
+        _lastEntryDate = today;
+
+        // Display the current streak.
+        Console.WriteLine($"Current Entry Streak: {_entryStreak} day(s). Keep it up!");
+    }
+
     // Method to display both loaded and new entries.
     public void DisplayEntries()
     {
-        if (LoadedEntries.Count > 0)
+        if (_loadedEntries.Count > 0)
         {
             Console.WriteLine("Existing Entries:");
-            foreach (var entry in LoadedEntries)
+            foreach (var entry in _loadedEntries)
             {
                 Console.WriteLine(entry.ToString());
                 Console.WriteLine(); // Add a blank line between entries
             }
         }
 
-        if (Entries.Count > 0)
+        if (_entries.Count > 0)
         {
             Console.WriteLine("New Entries:");
-            foreach (var entry in Entries)
+            foreach (var entry in _entries)
             {
                 Console.WriteLine(entry.ToString());
                 Console.WriteLine(); // Add a blank line between entries
