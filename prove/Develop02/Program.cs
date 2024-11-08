@@ -28,7 +28,6 @@ class Program
             Console.Write("What would you like to do? ");
             menuSelection = Console.ReadLine();
 
-            // Handle different menu options.
             if (menuSelection == "1")
             {
                 // Read prompts from the file and select one randomly.
@@ -42,19 +41,16 @@ class Program
             }
             else if (menuSelection == "2")
             {
-                // Display journal entries.
                 journal.DisplayEntries();
             }
             else if (menuSelection == "3")
             {
-                // Load journal entries from a file.
                 Console.Write("What file do you want to load? ");
                 var filePath = Console.ReadLine();
                 journal.LoadFile(filePath);
             }
             else if (menuSelection == "4")
             {
-                // Save new journal entries to a file.
                 journal.SaveEntries();
             }
         }

@@ -7,15 +7,3 @@ Entry: test2
 Date: 2024-11-04 - Prompt: How did you show kindness to someone today?
 Entry: test3
 
-Date: 2024-11-04 - Prompt: What was the best part of my day?
-Entry: test4
-
-Date: 2024-11-04 - Prompt: What is a dream you have for the future?
-Entry: test5
-
-Date: 2024-11-04 - Prompt: What was the strongest emotion I felt today?
-Entry: test show sreak
-
-Date: 2024-11-04 - Prompt: What was the strongest emotion I felt today?
-Entry: dsfkdsljflsdkj fl
-
