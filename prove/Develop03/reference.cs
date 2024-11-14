@@ -1,5 +1,5 @@
-
 // Reference: Keeps track of the book, chapter, and verse information.
+
 
 using System.Runtime.CompilerServices;
 
@@ -48,7 +48,6 @@ public class Reference
     _verse = verse;
     EndVerse = 0;
     }
-
 
     public string GetDisplayText()
     {

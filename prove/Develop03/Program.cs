@@ -30,10 +30,8 @@ class Program
             choice = int.Parse(Console.ReadLine());
         }
 
-       
         var selectedScripture = scriptures[choice];
 
-        
         Scripture scripture = new Scripture(selectedScripture.reference, selectedScripture.text);
 
         string userEntry = "";
@@ -52,7 +50,6 @@ class Program
                 scripture.HideRandomWords(3); 
             }
         }
-
         
         if (scripture.IsCompletelyHidden())
         {
