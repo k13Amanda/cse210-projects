@@ -11,7 +11,7 @@ public class Video
     private double _lengthSeconds;
     private List<Comment> _comments;
 
-    public Video(string title, string author, double seconds){
+    public Video(string title, string author, int seconds){
         _title = title;
         _author = author;
         _lengthSeconds = seconds;
@@ -20,11 +20,11 @@ public class Video
 
 
     public string GetTitle() => _title;
-    public string getAuthor() => _author;
-    public double getLength() => _lengthSeconds;
-    public List<Comment> getCommentsText() => _comments;
+    public string GetAuthor() => _author;
+    public double GetLength() => _lengthSeconds;
+    public List<Comment> GetComments() => _comments;
     
     public void AddComment(Comment comment) => _comments.Add(comment);
-   public double getNumberOfComments() => _comments.Count;
+   public int GetNumberOfComments() => _comments.Count;
 
 }
