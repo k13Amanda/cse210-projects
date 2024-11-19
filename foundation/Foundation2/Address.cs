@@ -24,7 +24,7 @@ class Address{
             return false;
         }
 
-    public string GetAddress()
+    public string GetFullAddress()
     {
         return $"{_street}\n{_city}, {_state} {_country}";
     }
