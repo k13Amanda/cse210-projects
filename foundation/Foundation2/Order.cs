@@ -1,8 +1,4 @@
 
-
-using System.Numerics;
-using System.Runtime.Intrinsics.Wasm;
-
 class Order{
 
 
@@ -25,23 +21,25 @@ class Order{
         string packingLabel = "Packing Label:\n";
         foreach (Product Product in _productList)
         {
-            packingLabel += $"{product.GetName()} ({product.GetProductId()})\n";
+            packingLabel += $"{Product.GetName()} ({Product.GetProductId()})\n";
         }
         return packingLabel;
     }
 
     public string GetShippingLabel()
     {
-        return $"Shipping Label:\n{_customer.GetName()}\n{_customer.GetAddress().GetFullAddress()}";
+        return $"Shipping Label:\n{_customer.GetName()}\n{_customer.GetAddress()}";
     }
 
-
     public int GetShippingCost(){ 
-        if(_customer.GetAddress().LiveInUsa ==true)
+        if(_customer.GetAddress().LiveInUsa())
         {
             return 5;
         }
-        return 35;
+        else
+        {
+            return 35;
+        }
     }
 
     public double GetTotalOrderCost()
@@ -49,12 +47,10 @@ class Order{
         double total = 0;
         foreach(Product product in _productList)
         {
-            total += product.GetTotalPrice();
+            total += product.GetTotalPriceOfOneProduct();
         }
         total += GetShippingCost();
         return total;
     }
-
-
 
 }
