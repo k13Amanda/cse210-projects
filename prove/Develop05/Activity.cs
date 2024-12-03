@@ -1,27 +1,29 @@
-using system;
+using System;
 
-
-public class Activity{
-
+public class Activity
+{
     protected string _name;
     protected string _description;
     protected int _duration;
 
-    public Activity(string name, string description,)
+    public Activity(string name, string description) 
     {
-    _name = name;
-    _description = description;
+        _name = name;
+        _description = description;
     }
 
     public void DisplayStartingMessage()
     {
-        Console.WriteLine($"Mindfulness Opportunities: {name} Activity");
-        Console.WriteLine($"Welcome to the {name} Activity\n\n {description} How long, in seconds, would you like for your session?");
+        Console.WriteLine($"Mindfulness Opportunities: {_name} Activity"); 
+        Console.WriteLine($"Welcome to the {_name} Activity\n\n{_description}\nHow long, in seconds, would you like for your session?"); // Use _name and _description
         string input = Console.ReadLine();
         if (int.TryParse(input, out _duration))
         {
-            Console.WriteLine($"You have selected a {_duration} second breathing session.");
-            // Here you can add the logic for the breathing activity
+            
+            Console.WriteLine($"You have selected a {_duration} second {_name} session."); 
+            Console.Clear();
+            Console.WriteLine("Get Ready...\n");
+            ShowSpinner(3);
         }
         else
         {
@@ -31,7 +33,12 @@ public class Activity{
 
     public void DisplayEndingMessage()
     {
-        Console.WriteLine($"Well Done!!\n\n You have completed another {duration} seconds of the {name} Activity");
+        Console.WriteLine($"\nWell Done!!\n\nYou have completed another {_duration} seconds of the {_name} Activity");
+    }
+
+    public virtual void Run() //Polymorphism, this is next weeks lesson but i learned how to do it while studing for this week so i added it in my program. 
+    {
+        
     }
 
     public void ShowSpinner(int seconds)
@@ -40,18 +47,16 @@ public class Activity{
         {
             Console.Write("/");
             System.Threading.Thread.Sleep(250);
-            Console.Write("\b"); // Backspace
-            Console.Write("/");
+            Console.Write("\b"); 
+            Console.Write("-");
             System.Threading.Thread.Sleep(250);
-            Console.Write("\b"); // Backspace
-            Console.Write("/");
+            Console.Write("\b"); 
+            Console.Write("\\");
             System.Threading.Thread.Sleep(250);
-            Console.Write("\b"); // Backspace
-            Console.Write("/");
+            Console.Write("\b"); 
+            Console.Write("|");
             System.Threading.Thread.Sleep(250);
-            Console.Write("\b"); // Backspace
-        
-
+            Console.Write("\b"); 
         }
     }
 
@@ -64,6 +69,4 @@ public class Activity{
         }
         Console.WriteLine();
     }
-
-
 }

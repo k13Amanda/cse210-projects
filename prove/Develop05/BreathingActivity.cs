@@ -9,12 +9,30 @@ public class BreathingActivity : Activity
 
     public override void Run()
     {
-        for (int i = 0; i < _duration / 2; i++)
+        Console.Clear();
+        DisplayStartingMessage();
+        int totalDuration = _duration; 
+        int cycleDuration = 10;
+
+        while (totalDuration > 0)
         {
-            Console.WriteLine("Breathe in...");
-            ShowCountDown(5);
-            Console.WriteLine("Breathe out...");
-            ShowCountDown(5);
+            if (totalDuration >= cycleDuration)
+            {
+                Console.WriteLine("Breathe in...");
+                ShowCountDown(5);
+                Console.WriteLine("Breathe out...");
+                ShowCountDown(5);
+                totalDuration -= cycleDuration; 
+            }
+            else
+            {
+                Console.WriteLine("Breathe in...");
+                ShowCountDown(totalDuration / 2);
+                Console.WriteLine("Breathe out...");
+                ShowCountDown(totalDuration / 2);
+                totalDuration = 0; 
+            }
         }
+        DisplayEndingMessage();
     }
 }

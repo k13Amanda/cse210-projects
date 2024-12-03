@@ -4,51 +4,55 @@ class Program
 {
     static void Main(string[] args)
     {
-        Console.Clear();
-        Console.WriteLine("Mindfulness Opportunities");
-        Console.WriteLine("What mindfulness opportunity would you like to do?");
-        Console.WriteLine("Menu Options:\n   1. Start breathing activity\n   2. Start reflecting activity\n   3. Start listing activity\n   4. Quit\nSelect a choice from the menu:");
+        int menuSelection = 0;
 
-        // Read input from the console and parse it to an integer
-        string input = Console.ReadLine();
-        int menuSelection;
-        
-        if (int.TryParse(input, out menuSelection))
+        while (menuSelection != 4)
         {
-            if (menuSelection == 1)
-            {
-                Activity activity = new BreathingActivity();
-                activity.DisplayStartingMessage();
-                activity.DisplayEndingMessage();
-            }
+            Console.Clear();
+            Console.WriteLine("Mindfulness Opportunities");
+            Console.WriteLine("What mindfulness opportunity would you like to do?");
+            Console.WriteLine("Menu Options:\n   1. Start breathing activity\n   2. Start reflecting activity\n   3. Start listing activity\n   4. Quit\nSelect a choice from the menu:");
 
-            else if (menuSelection == 2)
+            string input = Console.ReadLine();
+            
+            if (int.TryParse(input, out menuSelection))
             {
-              Activity activity = new ReflectingActivity();
-                activity.DisplayStartingMessage();
-                activity.DisplayEndingMessage();  
-            }
+                Activity activity = null;
 
-            else if (menuSelection == 3)
-            {
-                Activity activity = new ListingActivity();
-                activity.DisplayStartingMessage();
-                activity.DisplayEndingMessage();
-            }
+                if (menuSelection == 1)
+                {
+                    activity = new BreathingActivity();
+                }
+                else if (menuSelection == 2)
+                {
+                    activity = new ReflectingActivity();
+                }
+                else if (menuSelection == 3)
+                {
+                    activity = new ListingActivity();
+                }
+                else if (menuSelection == 4)
+                {
+                    Console.WriteLine("Quit");
+                    break; 
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input. Please select a valid option.");
+                    continue; 
+                }
 
-            else if (menuSelection == 4)
-            {
-                Console.WriteLine("Quit");
-            }
+                activity.Run();
 
+                Console.WriteLine("\nPress Enter to return to the menu...");
+                Console.ReadLine();
+
+            }
             else
             {
-                Console.WriteLine("Invalid input. Please select a valid option.");
+                Console.WriteLine("Invalid input. Please enter a number.");
+                continue;
             }
-        }
-        else
-        {
-            Console.WriteLine("Invalid input. Please enter a number.");
         }
     }
 }
