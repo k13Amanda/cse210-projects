@@ -1,3 +1,9 @@
+
+// I added another activity called StretchingActivity, and made a class and file for it. 
+//I added Polymorphism, this is next weeks lesson but i learned how to do it while studing for this week so i 
+//added it in my program. 
+
+
 using System;
 
 class Program
