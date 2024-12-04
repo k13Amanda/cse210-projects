@@ -14,6 +14,8 @@ public class BreathingActivity : Activity
         int totalDuration = _duration; 
         int cycleDuration = 10;
 
+        ShowTimerBar(totalDuration);
+
         while (totalDuration > 0)
         {
             if (totalDuration >= cycleDuration)

@@ -42,6 +42,8 @@ public class ReflectingActivity : Activity
         Console.Write("You begin in: ");
         ShowCountDown(10);
 
+        ShowTimerBar(totalDuration);
+
         for (int i = 0; i < _duration / 10; i++)
         {
             Console.WriteLine(GetRandomQuestion());
@@ -62,15 +64,3 @@ public class ReflectingActivity : Activity
         return _questions[rand.Next(_questions.Count)];
     }
 }
-
-
-//     public void DisplayPrompt()
-//     {
-//         return
-//     }
-
-//     public void DisplayQuestion()
-//     {
-//         return
-//     }
-// }
