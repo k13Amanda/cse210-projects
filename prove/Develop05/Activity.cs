@@ -72,7 +72,7 @@ public class Activity
 
     public void ShowTimerBar(int totalSeconds)
     {
-        { int progressBarLength = 50;
+        int progressBarLength = 50;
         for (int i = 0; i < totalSeconds; i++)
         {
             double progress = (double)i / totalSeconds;

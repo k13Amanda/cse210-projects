@@ -42,7 +42,7 @@ public class ReflectingActivity : Activity
         Console.Write("You begin in: ");
         ShowCountDown(10);
 
-        ShowTimerBar(totalDuration);
+        ShowTimerBar(_duration);
 
         for (int i = 0; i < _duration / 10; i++)
         {
