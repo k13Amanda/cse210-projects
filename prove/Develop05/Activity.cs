@@ -70,18 +70,4 @@ public class Activity
         Console.WriteLine();
     }
 
-    public void ShowTimerBar(int totalSeconds)
-    {
-        int progressBarLength = 50;
-        for (int i = 0; i < totalSeconds; i++)
-        {
-            double progress = (double)i / totalSeconds;
-            int filledLength = (int)(progressBarLength * progress);
-            string bar = new string('#', filledLength) + new string('-', progressBarLength - filledLength);
-            Console.Write($"\r[{bar}] {i + 1}/{totalSeconds} seconds");
-            System.Threading.Thread.Sleep(1000);
-        }
-        Console.WriteLine();
-    }
-
 }

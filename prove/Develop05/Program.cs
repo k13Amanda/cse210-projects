@@ -6,12 +6,11 @@ class Program
     {
         int menuSelection = 0;
 
-        while (menuSelection != 4)
+        while (menuSelection != 5)
         {
             Console.Clear();
-            Console.WriteLine("--------Mindfulness Opportunities--------");
-            Console.WriteLine("What mindfulness opportunity would you like to do?");
-            Console.WriteLine("Menu Options:\n   1. Start breathing activity\n   2. Start reflecting activity\n   3. Start listing activity\n   4. Quit\nSelect a choice from the menu:");
+            Console.WriteLine("Mindfulness Opportunities");
+            Console.WriteLine("Menu Options:\n   1. Start breathing activity\n   2. Start reflecting activity\n   3. Start listing activity\n   4. Start stretching activity\n   5. Quit\nSelect a choice from the menu:");
 
             string input = Console.ReadLine();
             
@@ -33,20 +32,22 @@ class Program
                 }
                 else if (menuSelection == 4)
                 {
+                    activity = new StretchingActivity();
+                }
+                else if (menuSelection == 5)
+                {
                     Console.WriteLine("Quit");
-                    break; 
+                    break;
                 }
                 else
                 {
                     Console.WriteLine("Invalid input. Please select a valid option.");
-                    continue; 
+                    continue;
                 }
 
                 activity.Run();
-
                 Console.WriteLine("\nPress Enter to return to the menu...");
                 Console.ReadLine();
-
             }
             else
             {
@@ -56,3 +57,4 @@ class Program
         }
     }
 }
+
