@@ -7,15 +7,17 @@ public class SimpleGoal : Goal{
         _isComplete = false;
     }
 
-    public override int RecordEvent()
+    public override void RecordEvent()
     {
-        _isComplete = true;
-        return _points;
+        if (_isComplete == true)
+        {
+            return _points;
+        }
     }
 
      public override bool IsComplete()
      {
-        return _isComplete;
+        return true;
     }
 
      public override string GetStringRepresentation()
