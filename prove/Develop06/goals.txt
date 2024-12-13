@@ -1,4 +1,0 @@
-950
-SimpleGoal|give a talk|speak in meeting when asked|100|True
-EternalGoal|study the scriptures|read for 10 min|50
-ChecklistGoal|go to the temple|atend the temple and do ord|50|3|500|3
