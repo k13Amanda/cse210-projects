@@ -1,13 +1,25 @@
-
 public class GoalManager
 {
     private List<Goal> _goals;
     private int _score;
+    private static GoalManager _instance;
 
     public GoalManager()
     {
         _goals = new List<Goal>();
         _score = 0;
+        _instance = this;
+    }
+
+    public static GoalManager Instance
+    {
+        get { return _instance; }
+    }
+
+    public void AddPoints(int points)
+    {
+        _score += points;
+        Console.WriteLine($"Total score: {_score}.");
     }
 
     public void Start()
@@ -15,7 +27,7 @@ public class GoalManager
         int menuSelection = 0;
         while (menuSelection != 6)
         {
-            Console.WriteLine($"You have {_score} points.");
+            Console.WriteLine($"You have {_score} points.\n");
             Console.WriteLine("Menu Options:");
             Console.WriteLine(" 1. Create New Goal");
             Console.WriteLine(" 2. List Goals");
@@ -111,9 +123,9 @@ public class GoalManager
             }
             else if (goalChoice == 3)
             {
-                Console.Write("What is the target number for the checklist? ");
+                Console.Write("How many times does this goal need to be accomplished for a bonus? ");
                 int target = Convert.ToInt32(Console.ReadLine());
-                Console.Write("What is the bonus for completing the checklist? ");
+                Console.Write("What is the bonus for completing it that many times? ");
                 int bonus = Convert.ToInt32(Console.ReadLine());
                 _goals.Add(new ChecklistGoal(name, description, points, target, bonus));
             }
@@ -128,40 +140,52 @@ public class GoalManager
         }
     }
 
-
     public void RecordEvent()
     {
-        Console.WriteLine("Select the goal you accomplished:");
+        Console.WriteLine("The goals are:");
+
         for (int i = 0; i < _goals.Count; i++)
         {
             Console.WriteLine($"{i + 1}. {_goals[i].GetDetailsString()}");
         }
 
+        Console.Write("Which goal did you accomplish? ");
         if (int.TryParse(Console.ReadLine(), out int goalIndex) && goalIndex > 0 && goalIndex <= _goals.Count)
         {
-            int pointsEarned = _goals[goalIndex - 1].RecordEvent();
-            _score += pointsEarned;
-            Console.WriteLine($"Recorded event for '{_goals[goalIndex - 1].GetDetailsString()}'. Points earned: {pointsEarned}. Total score: {_score}.");
+            Goal selectedGoal = _goals[goalIndex - 1];
+            
+            if (selectedGoal.IsComplete())
+            {
+                Console.WriteLine("This goal has already been completed.");
+            }
+            else
+            {
+                selectedGoal.RecordEvent();
+            }
+
+            Console.WriteLine($"Recorded event for '{selectedGoal.GetDetailsString()}'. Total score: {_score}.");
+            Console.WriteLine("********    :)    *********");
         }
         else
         {
-            Console.WriteLine("Invalid choice.");
+            Console.WriteLine("Invalid choice. Please select a valid goal number.");
         }
     }
+
 
     public void SaveGoals()
     {
         using (StreamWriter writer = new StreamWriter("goals.txt"))
         {
+            writer.WriteLine(_score); // Save the score on the first line
+
             foreach (var goal in _goals)
             {
                 writer.WriteLine(goal.GetStringRepresentation());
             }
         }
-        Console.WriteLine("Goals saved.");
+        Console.WriteLine("Goals and score saved.");
     }
-
-
 
     public void LoadGoals()
     {
@@ -170,29 +194,36 @@ public class GoalManager
             using (StreamReader reader = new StreamReader("goals.txt"))
             {
                 _goals.Clear();
+                
+                // Load the score from the first line
+                if (int.TryParse(reader.ReadLine(), out int loadedScore))
+                {
+                    _score = loadedScore;
+                }
+
                 string line;
                 while ((line = reader.ReadLine()) != null)
                 {
                     string[] parts = line.Split('|');
-                    switch (parts[0])
+                    if (parts[0] == "SimpleGoal")
                     {
-                        case "SimpleGoal":
-                            var sg = new SimpleGoal(parts[1], parts[2], int.Parse(parts[3]));
-                            sg.IsComplete = bool.Parse(parts[4]);
-                            _goals.Add(sg);
-                            break;
-                        case "EternalGoal":
-                            _goals.Add(new EternalGoal(parts[1], parts[2], int.Parse(parts[3])));
-                            break;
-                        case "ChecklistGoal":
-                            var cg = new ChecklistGoal(parts[1], parts[2], int.Parse(parts[3]), int.Parse(parts[4]), int.Parse(parts[5]));
-                            cg.TimesCompleted = int.Parse(parts[6]);
-                            _goals.Add(cg);
-                            break;
+                        var sg = new SimpleGoal(parts[1], parts[2], int.Parse(parts[3]));
+                        sg.GetType().GetField("_isComplete", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).SetValue(sg, bool.Parse(parts[4]));
+                        _goals.Add(sg);
+                    }
+                    else if (parts[0] == "EternalGoal")
+                    {
+                        _goals.Add(new EternalGoal(parts[1], parts[2], int.Parse(parts[3])));
+                    }
+                    else if (parts[0] == "ChecklistGoal")
+                    {
+                        var cg = new ChecklistGoal(parts[1], parts[2], int.Parse(parts[3]), int.Parse(parts[4]), int.Parse(parts[5]));
+                        cg.TimesCompleted = int.Parse(parts[6]);
+                        _goals.Add(cg);
                     }
                 }
             }
-            Console.WriteLine("Goals loaded.");
+            Console.WriteLine("Goals and score loaded.");
         }
         else
         {
